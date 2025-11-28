@@ -1,6 +1,6 @@
-import { TimelineEntry } from "@/utils/types";
+import { TimelineReport } from "@/utils/types";
 
-async function loadReports(): Promise<TimelineEntry[]> {
+async function loadReports(): Promise<TimelineReport[]> {
   try {
     let baseUrl: string;
     if (typeof window !== 'undefined') {
@@ -14,7 +14,7 @@ async function loadReports(): Promise<TimelineEntry[]> {
       throw new Error(`Failed to load reports data: ${response.status}`)
     }
 
-    const data: TimelineEntry[] = await response.json();
+    const data: TimelineReport[] = await response.json();
     return data;
   } catch (error) {
     console.error('Error loading reports:', error);

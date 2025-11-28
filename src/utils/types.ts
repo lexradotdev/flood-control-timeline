@@ -1,7 +1,9 @@
-export type TimelineEntry = {
+export type TimelineReport = {
   dateCreated: Date,
-  month: string,
-  category: string,
+  category: TimelineCategories,
   title: string,
   description: string
+  url: string
 }
+
+export type TimelineCategories = 'zaldy' | 'gen_news'
