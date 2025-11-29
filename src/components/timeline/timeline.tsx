@@ -1,52 +1,57 @@
-interface TimelineItemProps {
-  date: Date,
-  title: string,
-  description: string,
-  alignToLeft: boolean
+import { ReactNode } from "react";
+
+interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+}
+
+interface TimelineItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: ReactNode
+}
+
+interface TimelineContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+}
+
+export const Timeline = (props: TimelineProps) => {
+  return (
+    <div className="flex flex-col">
+      {props.children}
+    </div>
+  )
 }
 
 export const TimelineItem = (props: TimelineItemProps) => {
-  const { date, title, description, alignToLeft } = props;
-
-  const contentColumn = (
-    <div className={`w-1/2 ${alignToLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-      <div className="inline-block">
-        <h3 className="text-base font-semibold text-slate-900 mb-1">
-          {title}
-        </h3>
-        <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
-      </div>
-    </div>
-  );
-
-  const dateColumn = (
-    <div className={`w-1/2 ${alignToLeft ? 'pl-8 text-left' : 'pr-8 text-right'}`}>
-      <div className="text-sm font-medium text-slate-500">
-        {new Date(date).toLocaleDateString('en-PH', { year: 'numeric', month: 'short', day: 'numeric' })}
-      </div>
-    </div>
-  );
+  const { className, children } = props;
 
   return (
-    <div className="relative flex items-center">
-      
-      {alignToLeft ? (
-        <>
-          {contentColumn}
-          {dateColumn}
-        </>
-      ) : (
-        <>
-          {dateColumn}
-          {contentColumn}
-        </>
-      )}
+    <div
+      className={`w-full flex flex-row items-center gap-4 ${className || ''}`}
+    >
+      {children}
+    </div>
+  );
+};
 
-      <div className="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-blue-600 rounded-full z-10 flex items-center justify-center shadow-sm">
+export const TimelineContent = (props: TimelineContentProps) => {
+  const { children, className, ...rest } = props;
+
+  return (
+    <div className={`flex-1 ${className || ''}`} {...rest}>{children}</div>
+  )
+}
+
+export const TimelineSeparator = () => {
+  return (
+    <div
+      className={`w-5 h-full relative flex flex-col items-center`}
+    >
+      <div className="w-0.5 h-1/2 bg-blue-500"></div>
+      <div className="bg-blue-600 rounded-full">
         <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
       </div>
+      <div className="w-0.5 h-1/2 bg-blue-500"></div>
     </div>
   );
 };
