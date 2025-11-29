@@ -26,7 +26,7 @@ export default async function Home() {
         <h3 className="font-semibold">{report.title}</h3>
         <div className="flex flex-row gap-5 items-center text-justify">
           <p className="text-sm mt-2 text-gray-600 text-ellipsis line-clamp-4">{report.description}</p>
-          <Link href={report.url} target="_blank" className="text-blue-600 hover:underline text-sm">
+          <Link href={report.url} target="_blank" className="text-blue-700 hover:underline text-sm">
             <ArrowUpRight className="text-2xl" />
           </Link>
         </div>
