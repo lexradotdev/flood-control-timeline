@@ -1,3 +1,4 @@
+import { CirclePlus } from "lucide-react";
 import { ReactNode } from "react";
 
 interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -46,11 +47,7 @@ export const TimelineSeparator = () => {
       className={`w-5 h-full relative flex flex-col items-center`}
     >
       <div className="w-0.5 h-1/2 bg-blue-500"></div>
-      <div className="bg-blue-600 rounded-full">
-        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
+      <CirclePlus className="text-blue-500" />
       <div className="w-0.5 h-1/2 bg-blue-500"></div>
     </div>
   );

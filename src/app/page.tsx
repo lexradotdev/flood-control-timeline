@@ -85,6 +85,7 @@ export default async function Home() {
           <Timeline role="list" className="space-y-6">
             {sortedReports.map((r, i) => renderTimelineItem(r, (r as any).id ?? i))}
           </Timeline>
+          <div className="text-center mt-2 font-bold">End of Timeline</div>
         </section>
       )}
     </main>
