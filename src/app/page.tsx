@@ -22,17 +22,15 @@ export default async function Home() {
       </time>
     );
     const contentElement = (
-      <Link href={report.url} target="_blank" className="block">
-        <div className="p-2 bg-gray-100 rounded-lg cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-200">
-          <h3 className="font-semibold text-xs sm:text-base">{report.title}</h3>
-          <div className="flex-row gap-5 items-center text-justify hidden sm:flex">
-            <p className="text-xs mt-2 text-gray-600 text-ellipsis line-clamp-6">{report.description}</p>
-            <Link href={report.url} target="_blank" className="text-blue-700 hover:underline text-sm">
-              <ArrowUpRight className="text-2xl" />
-            </Link>
-          </div>
+      <div className="p-2 bg-gray-100 rounded-lg cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-200">
+        <h3 className="font-semibold text-xs sm:text-base">{report.title}</h3>
+        <div className="flex-row gap-5 items-center text-justify hidden sm:flex">
+          <p className="text-xs mt-2 text-gray-600 text-ellipsis line-clamp-6">{report.description}</p>
+          <Link href={report.url} target="_blank" className="text-blue-700 hover:underline text-sm">
+            <ArrowUpRight className="text-2xl" />
+          </Link>
         </div>
-      </Link>
+      </div>
     );
 
     return (
