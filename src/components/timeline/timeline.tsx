@@ -46,9 +46,9 @@ export const TimelineSeparator = () => {
     <div
       className={`w-5 h-full relative flex flex-col items-center`}
     >
-      <div className="w-0.5 h-1/2 bg-blue-700"></div>
-      <CirclePlus className="text-blue-700" />
-      <div className="w-0.5 h-1/2 bg-blue-700"></div>
+      <div className="w-0.5 h-1/2 bg-blue-900"></div>
+      <CirclePlus className="text-blue-900" />
+      <div className="w-0.5 h-1/2 bg-blue-900"></div>
     </div>
   );
 };
