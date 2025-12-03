@@ -1,13 +1,8 @@
 import { getHostUrl } from "@/utils/utility";
 import { Link2 } from "lucide-react";
+import { forwardRef, HTMLAttributes } from "react";
 
-interface ReportPreviewCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  recordId: number;
-}
-
-interface ReportSourceProps extends React.HTMLAttributes<HTMLDivElement> {
-  source: string;
-}
+interface ReportPreviewCardProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 interface ReportHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -19,58 +14,59 @@ interface ReportContentProps extends React.HTMLAttributes<HTMLDivElement> {
   url: string;
 }
 
-const ReportPreviewCard = (props: ReportPreviewCardProps) => {
-  const { recordId, children, className, ...rest } = props;
+const ReportPreviewCard = forwardRef<HTMLDivElement, ReportPreviewCardProps>(
+  ({className, children, ...rest}, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={`p-2 sm:p-3 rounded-lg bg-white border border-slate-200 shadow-md hover:shadow-lg transition-shadow duration-200 ${
+          className || ""
+        }`}
+        {...rest}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
-  return (
+const ReportHeader = forwardRef<HTMLDivElement, ReportHeaderProps>(
+  ({ title, url, className, children, ...rest }, ref) => (
     <div
-      className={`p-2 rounded-lg bg-gray-50 cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-200 ${
-        className || ""
-      }`}
+      ref={ref}
+      className={`flex flex-col items-start ${className || ""}`}
       {...rest}
     >
-      {children}
-    </div>
-  );
-};
-
-const ReportSource = (props: ReportSourceProps) => {
-  const { className, ...rest } = props;
-
-  return (
-    <div
-      className={`text-xs text-gray-500 font-semibold ${className || ""}`}
-      {...rest}
-    >
-      {props.source}
-    </div>
-  );
-};
-
-const ReportHeader = (props: ReportHeaderProps) => {
-  const { title, url, className, children, ...rest } = props;
-
-  return (
-    <div className={`flex flex-col items-start ${className || ""}`} {...rest}>
-      <h3 className="font-semibold text-xs sm:text-base">{title}</h3>
-      <div className="text-xs flex flex-row gap-1 items-center text-gray-400 hover:underline">
+      <h3 className="font-semibold text-xs sm:text-base text-ellipsis line-clamp-5">{title}</h3>
+      <div className="text-xs hidden sm:flex flex-row gap-1 items-center text-gray-400 hover:underline">
         <Link2 size={12} />
         <span>{getHostUrl(url)}</span>
       </div>
+      {children}
     </div>
-  );
-};
+  )
+);
 
-const ReportContent = (props: ReportContentProps) => {
-  const { description, url, className, ...rest } = props;
-
-  return (
-    <div className="flex-row gap-5 items-center text-justify hidden sm:flex">
+const ReportContent = forwardRef<HTMLDivElement, ReportContentProps>(
+  ({ description, url, className, ...rest }, ref) => (
+    <div
+      ref={ref}
+      className={`hidden sm:block ${className || ''}`}
+      {...rest}
+    >
       <p className="text-xs mt-2 text-gray-700 text-ellipsis line-clamp-6">
         {description}
       </p>
     </div>
-  );
-};
+  )
+);
 
-export { ReportPreviewCard, ReportSource, ReportHeader, ReportContent };
+const ReportActions = forwardRef<HTMLDivElement,HTMLAttributes<HTMLDivElement>>(
+  ({ className = '', children, ...props }, ref) => (
+    <div ref={ref} className={`mt-3 ${className}`} {...props}>
+      {children}
+    </div>
+  )
+);
+
+export { ReportPreviewCard, ReportHeader, ReportContent, ReportActions };

@@ -1,21 +1,19 @@
 import {
+  ReportActions,
   ReportContent,
   ReportHeader,
   ReportPreviewCard,
-  ReportSource,
 } from "@/components/report-preview-card";
 import {
   Timeline,
   TimelineContent,
   TimelineItem,
   TimelineSeparator,
-} from "@/components/timeline/timeline";
+} from "@/components/timeline";
+import { Button } from "@/components/ui/button";
 import { getReports } from "@/data/reports";
 import { TimelineReport } from "@/utils/types";
-import {
-  NewspaperIcon,
-  UserRoundSearch,
-} from "lucide-react";
+import { NewspaperIcon, UserRoundSearch } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
@@ -24,7 +22,7 @@ export default async function Home() {
   const sortedReports = (reports ?? []).slice().sort(
     (a, b) =>
       // Oldest first
-      new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime()
+      new Date(a.dateCreated.toDate()).getTime() - new Date(b.dateCreated.toDate()).getTime()
   );
 
   const formatDate = (date: string) =>
@@ -38,52 +36,51 @@ export default async function Home() {
     const isZaldy = report.category === "zaldy";
 
     return (
-      <TimelineItem key={index} className="h-[100px] sm:h-[200px]">
+      <TimelineItem key={index} className="h-[100px] sm:h-[260px]">
         {isZaldy ? (
           <>
             <TimelineContent>
-              <Link href={report.url} target="_blank">
-                <ReportPreviewCard recordId={index}>
+              <ReportPreviewCard>
+                <Link href={report.url} target="_blank">
                   <ReportHeader
                     title={report.title}
                     url={report.url}
-                    className="text-red-700"
+                    className="text-red-900"
                   />
                   <ReportContent
                     description={report.description}
                     url={report.url}
                   ></ReportContent>
-                </ReportPreviewCard>
-              </Link>
+                </Link>
+                <ReportActions className="hidden sm:block">
+                  <Link href={report.url} target="_blank">
+                    <Button className="bg-red-900 hover:bg-red-700">
+                      Read more
+                    </Button>
+                  </Link>
+                </ReportActions>
+              </ReportPreviewCard>
             </TimelineContent>
             <TimelineSeparator />
             <TimelineContent>
-              <ReportPreviewCard
-                recordId={index}
-                className="bg-white shadow-none"
-              >
-                <time className="text-sm text-gray-500">
-                  {formatDate(new Date(report.dateCreated).toISOString())}
-                </time>
-              </ReportPreviewCard>
+              <time className="text-sm text-gray-500">
+                {formatDate(report.dateCreated.toDate().toDateString())}
+              </time>
             </TimelineContent>
           </>
         ) : (
           <>
             <TimelineContent>
-              <ReportPreviewCard
-                className="text-right bg-white shadow-none"
-                recordId={index}
-              >
+              <div className="text-right">
                 <time className="text-sm text-gray-500">
-                  {formatDate(new Date(report.dateCreated).toISOString())}
+                  {formatDate(report.dateCreated.toDate().toDateString())}
                 </time>
-              </ReportPreviewCard>
+              </div>
             </TimelineContent>
             <TimelineSeparator />
             <TimelineContent>
-              <Link href={report.url} target="_blank">
-                <ReportPreviewCard recordId={index}>
+              <ReportPreviewCard>
+                <Link href={report.url} target="_blank">
                   <ReportHeader
                     title={report.title}
                     url={report.url}
@@ -93,8 +90,13 @@ export default async function Home() {
                     description={report.description}
                     url={report.url}
                   ></ReportContent>
-                </ReportPreviewCard>
-              </Link>
+                </Link>
+                <ReportActions className="hidden sm:block">
+                  <Link href={report.url} target="_blank">
+                    <Button>Read more</Button>
+                  </Link>
+                </ReportActions>
+              </ReportPreviewCard>
             </TimelineContent>
           </>
         )}
@@ -103,7 +105,7 @@ export default async function Home() {
   };
 
   return (
-    <main className="container mx-auto py-8 px-4">
+    <main className="container mx-auto sm:py-8 sm:px-4">
       <div className="max-w-3xl mx-auto text-center mb-12">
         <h1 className="text-3xl font-bold">
           <span className="text-red-700">Zaldy Co</span> VS{" "}
@@ -129,7 +131,7 @@ export default async function Home() {
 
           <div>
             <div>
-              <div className="flex flex-row justify-around gap-5">
+              <div className="flex flex-row justify-around gap-5 mb-10">
                 <div className="flex flex-col items-center">
                   <UserRoundSearch className="text-red-700 text-lg" />
                   <span>Zaldy Co's</span>
@@ -142,7 +144,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <Timeline role="list" className="space-y-6">
+          <Timeline>
             {sortedReports.map((r, i) =>
               renderTimelineItem(r, (r as any).id ?? i)
             )}

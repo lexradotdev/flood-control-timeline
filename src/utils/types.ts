@@ -1,5 +1,8 @@
+import { Timestamp } from "firebase/firestore"
+
 export type TimelineReport = {
-  dateCreated: Date,
+  id: string,
+  dateCreated: Timestamp,
   category: TimelineCategories,
   title: string,
   description: string,

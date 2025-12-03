@@ -18,9 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // FIX: Use a template literal (backticks ``) to combine the variable and the string
     <html lang="en" className={`${recursive.className} flex justify-center min-h-screen`}>
-      <body className="w-full md:w-5/6 p-5">{children}</body>
+      <body className="w-full py-4 px-2 md:w-5/6 md:p-5">{children}</body>
     </html>
   );
 }
