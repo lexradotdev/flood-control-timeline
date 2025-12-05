@@ -28,11 +28,11 @@ export default async function Home() {
   );
 
   const renderTimelineItem = (report: TimelineReport, index: number) => {
-    const isZaldy = report.category === "zaldy";
+    const isGenNews = report.category === "gen_news";
 
     return (
       <TimelineItem key={index} className="h-[100px] sm:h-[260px]">
-        {isZaldy ? (
+        {!isGenNews ? (
           <>
             <TimelineContent>
               <ReportPreviewCard>
@@ -113,11 +113,10 @@ export default async function Home() {
     <main className="container mx-auto sm:py-8 sm:px-4">
       <div className="max-w-3xl mx-auto text-center mb-12">
         <h1 className="text-3xl font-bold">
-          <span className="text-red-700">Zaldy Co</span> VS{" "}
-          <span className="text-blue-900">Corruption Scandal</span>
+          <span className="text-blue-900">The P1.9 Trillion Flood Control Corruption Scandal</span>
         </h1>
         <p className="text-lg mt-2 text-gray-600">
-          A Chronology of Investigations, Whistleblowers, and Public Fallout.
+          A Timeline of Graft and Accountability
         </p>
       </div>
 
@@ -139,7 +138,7 @@ export default async function Home() {
               <div className="flex flex-row justify-around gap-5 mb-10">
                 <div className="flex flex-col items-center">
                   <UserRoundSearch className="text-red-700 text-lg" />
-                  <span>Zaldy Co's</span>
+                  <span>Accused</span>
                 </div>
                 <div className="flex flex-col items-center">
                   <NewspaperIcon className="text-blue-900 text-lg" />

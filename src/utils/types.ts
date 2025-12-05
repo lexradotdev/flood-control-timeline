@@ -10,4 +10,4 @@ export type TimelineReport = {
   source?: string
 }
 
-export type TimelineCategories = 'zaldy' | 'gen_news'
+export type TimelineCategories = 'zaldy' | 'discaya' | 'chiz' | 'romualdez' | 'gen_news'
