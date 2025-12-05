@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { getReports } from "@/data/reports";
 import { TimelineReport } from "@/utils/types";
+import { formatDate, formatTime } from "@/utils/utility";
 import { NewspaperIcon, UserRoundSearch } from "lucide-react";
 import Link from "next/link";
 
@@ -22,15 +23,9 @@ export default async function Home() {
   const sortedReports = (reports ?? []).slice().sort(
     (a, b) =>
       // Oldest first
-      new Date(a.dateCreated.toDate()).getTime() - new Date(b.dateCreated.toDate()).getTime()
+      new Date(a.dateCreated.toDate()).getTime() -
+      new Date(b.dateCreated.toDate()).getTime()
   );
-
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString("en-PH", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
 
   const renderTimelineItem = (report: TimelineReport, index: number) => {
     const isZaldy = report.category === "zaldy";
@@ -63,18 +58,28 @@ export default async function Home() {
             </TimelineContent>
             <TimelineSeparator />
             <TimelineContent>
-              <time className="text-sm text-gray-500">
-                {formatDate(report.dateCreated.toDate().toDateString())}
-              </time>
+              <div className="text-sm text-gray-500 flex flex-col">
+                <span>
+                  {formatDate(report.dateCreated.toDate())}
+                </span>
+                <span className="text-xs text-gray-400">
+                  {formatTime(report.dateCreated.toDate())}
+                </span>
+              </div>
             </TimelineContent>
           </>
         ) : (
           <>
             <TimelineContent>
               <div className="text-right">
-                <time className="text-sm text-gray-500">
-                  {formatDate(report.dateCreated.toDate().toDateString())}
-                </time>
+                <div className="text-sm text-gray-500 flex flex-col">
+                  <span>
+                    {formatDate(report.dateCreated.toDate())}
+                  </span>
+                  <span className="text-xs text-gray-400">
+                    {formatTime(report.dateCreated.toDate())}
+                  </span>
+                </div>
               </div>
             </TimelineContent>
             <TimelineSeparator />
